@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: HotelBooking_API
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=server=db;database=hotelbookingdb;user=root;password=root;
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: hotelbookingdb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: hotelbookingdb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3310:3310"
+    volumes:
+      - mysqldata:/var/lib/mysql
+
+  frontend:
+    build:
+      context: ../FrontEnd
+      dockerfile: Dockerfile
+    container_name: HotelBooking_FrontEnd
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  mysqldata:

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Control</title>
+  <script type="module" src="./js/control.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-200 min-h-screen flex flex-col" x-data="hotelManager()" x-init="init()">
+
+  <!-- Header -->
+  <header class="bg-gray-900 text-white px-8 py-4 flex justify-between items-center">
+    <div class="text-2xl font-semibold">Hotel Booking</div>
+
+    <nav class="flex space-x-8 text-lg">
+      <a href="index.html" class="hover:underline">Hotels</a>
+      <a href="my-bookings.html" class="hover:underline">Bookings</a>
+      <a href="statistics.html" class="hover:underline">Statistics</a>
+      <a href="control.html" class="hover:underline">Control</a>
+    </nav>
+
+    <div id="userInfo" class="text-right font-medium" x-text="username"></div>
+  </header>
+
+  <!-- Main -->
+  <main class="flex-1 p-10 flex flex-col justify-start w-full max-w-[65%] mx-auto">
+    <div x-data="hotelManager()" class="bg-gray-100 w-full max-w-3xl rounded-xl shadow p-6">
+
+    <!-- Add Hotel Form -->
+    <h2 class="text-2xl font-semibold mb-4">Add new Hotel</h2>
+
+    <div class="grid grid-cols-3 gap-3 mb-4">
+      <input type="text" placeholder="Hotel name" x-model="hotel.hotelName"
+             class="border rounded px-2 py-1 w-full" />
+      <input type="text" placeholder="City" x-model="hotel.city"
+             class="border rounded px-2 py-1 w-full" />
+      <input type="text" placeholder="Address" x-model="hotel.address"
+             class="border rounded px-2 py-1 w-full" />
+    </div>
+
+    <textarea placeholder="Description" x-model="hotel.description"
+              class="border rounded px-2 py-1 w-full mb-4"></textarea>
+
+    <div class="flex justify-end mb-6">
+      <button @click="addHotel"
+              class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Add new Hotel
+      </button>
+    </div>
+
+    <!-- Rooms Section -->
+    <template x-if="hotelAdded">
+      <div>
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="text-xl font-semibold">Rooms</h3>
+          <button @click="showRoomModal = true"
+                  class="text-2xl font-bold hover:text-blue-600">+</button>
+        </div>
+
+        <!-- Room Cards -->
+        <template x-for="room in rooms" :key="room.roomId">
+          <div class="bg-white p-4 rounded-xl shadow mb-3 flex justify-between items-center">
+            <div>
+              <template x-if="!room.isEditing">
+                <div>
+                  <div class="font-semibold" x-text="room.roomName"></div>
+                  <div class="text-gray-500 text-sm" x-text="room.roomSize"></div>
+                </div>
+              </template>
+
+              <template x-if="room.isEditing">
+                <div>
+                  <input x-model="room.roomName" class="border rounded px-2 py-1 mb-1 w-full" />
+                  <input x-model="room.roomSize" class="border rounded px-2 py-1 mb-1 w-full" />
+                  <input x-model="room.pricePerNight" type="number" class="border rounded px-2 py-1 mb-1 w-full" />
+                </div>
+              </template>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <template x-if="!room.isEditing">
+                <div class="text-sm text-gray-800 font-semibold"
+                     x-text="`${room.pricePerNight}$ per night`"></div>
+              </template>
+
+              <template x-if="!room.isEditing">
+                <button class="bg-yellow-400 text-black px-3 py-1 rounded-lg hover:bg-yellow-500 text-sm"
+                        @click="room.isEditing = true">
+                  Update
+                </button>
+              </template>
+
+              <template x-if="room.isEditing">
+                <button class="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 text-sm"
+                        @click="updateRoom(room)">
+                  Save
+                </button>
+              </template>
+
+              <button class="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 text-sm"
+                      @click="deleteRoom(room.roomId)">
+                Remove
+              </button>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <!-- Modal for creating room -->
+    <div x-show="showRoomModal"
+         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+         x-transition>
+      <div @click.away="showRoomModal = false"
+           class="bg-white rounded-xl shadow-lg p-6 w-96">
+        <h3 class="text-xl font-semibold mb-4 text-center">Create room</h3>
+
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Room name</label>
+          <input type="text" x-model="newRoom.roomName"
+                 class="border rounded w-full px-2 py-1" />
+        </div>
+
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Room size</label>
+          <select x-model="newRoom.roomSize"
+                  class="border rounded w-full px-2 py-1">
+            <option value="">Select size</option>
+            <option value="1">1 person</option>
+            <option value="2">2 persons</option>
+            <option value="3">3 persons</option>
+            <option value="4">4 persons</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Price per night</label>
+          <input type="number" x-model="newRoom.pricePerNight"
+                 class="border rounded w-full px-2 py-1" />
+        </div>
+
+        <div class="flex justify-center space-x-3">
+          <button @click="createRoom"
+                  class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Create room
+          </button>
+          <button @click="showRoomModal = false"
+                  class="bg-gray-400 text-black px-4 py-2 rounded hover:bg-gray-500">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </main>
+
+</body>
+</html>

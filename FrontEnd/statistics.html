@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Statistics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="/js/statistics.js"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-200 min-h-screen flex flex-col" x-data="statisticsApp()">
+
+  <!-- Header -->
+  <header class="bg-gray-900 text-white px-8 py-4 flex justify-between items-center">
+    <div class="text-2xl font-semibold">Hotel Booking</div>
+
+    <nav class="flex space-x-8 text-lg">
+      <a href="index.html" class="hover:underline">Hotels</a>
+      <a href="my-bookings.html" class="hover:underline">Bookings</a>
+      <a href="statistics.html" class="hover:underline">Statistics</a>
+      <a href="control.html" class="hover:underline">Control</a>
+    </nav>
+
+    <div id="userInfo" class="text-right font-medium" x-text="username"></div>
+  </header>
+
+  <!-- Main -->
+  <main class="flex-1 p-10 flex flex-col justify-start w-full max-w-[65%] mx-auto">
+    <h1 class="text-3xl font-semibold mb-4">Statistics</h1>
+
+    <div class="space-y-4">
+        <canvas id="bookingsChart" width="400" height="200"></canvas>
+    </div>
+
+    <h1 class="text-3xl font-semibold mb-4 mt-4">All bookings</h1>
+
+    <div class="space-y-4">
+      <template x-for="booking in bookings" :key="booking.bookingId">
+            <div class="bg-white rounded-xl p-4 flex items-center justify-between shadow hover:shadow-lg transition">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gray-300 w-16 h-16 flex items-center justify-center rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 6h18M3 14h18M3 18h18M3 22h18"/>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col space-y-1">
+                        <div class="text-lg font-semibold" x-text="booking.hotelName"></div>
+                        <div class="text-gray-500 text-sm" x-text="booking.city"></div>
+                        <div class="text-gray-500 text-sm" x-text="booking.roomName"></div>
+                        <div class="text-gray-500 text-sm" x-text="booking.firstName + ' ' + booking.lastName"></div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end space-y-1">
+                    <div class="text-lg font-semibold text-blue-600" x-text="booking.totalPrice + ' $'"></div>
+                    <div class="text-gray-500 text-sm" x-text="'Check-in: ' + booking.checkInDate"></div>
+                    <div class="text-gray-500 text-sm" x-text="'Check-out: ' + booking.checkOutDate"></div>
+                </div>
+            </div>
+        </template>
+
+
+      <p x-show="bookings.length === 0" class="text-center text-gray-500">No bookings found.</p>
+    </div>
+  </main>
+
+</body>
+</html>
