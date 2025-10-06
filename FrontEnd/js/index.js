@@ -43,9 +43,11 @@ window.hotelApp = function () {
 
     async init() {
 
-        const response = await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Bookings/allBookings`);
+      try {
 
-        this.bookings = await response.json();
+        const response1 = await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Bookings/allBookings`);
+
+        this.bookings = await response1.json();
 
         this.bookingsByRoom = {};
         this.bookings.forEach(b => {
@@ -53,7 +55,7 @@ window.hotelApp = function () {
             this.bookingsByRoom[b.roomId].push(b);
         });
 
-      try {
+
         const response = await apiFetch('https://hotelbooking-0bnw.onrender.com/api/Hotels/allHotels');
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         this.hotels = await response.json();
