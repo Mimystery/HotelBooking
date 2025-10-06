@@ -20,7 +20,7 @@ export async function apiFetch(url, options = {}, retry = true) {
       credentials: 'include',
     });
 
-    if (response.status === 401 && retry) {
+    if (response.status === 401 && retry && !url.includes('/refresh-token')) {
       const newToken = await refreshAccessToken();
 
       if (!newToken) {
