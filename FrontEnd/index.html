@@ -59,7 +59,7 @@
               <div class="text-gray-500 text-sm" x-text="hotel.city"></div>
             </div>
           </div>
-          <button @click.stop="removeHotel(hotel.hotelId)" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow transition">
+          <button x-show="userRole === 'Admin'" @click.stop="removeHotel(hotel.hotelId)" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow transition">
             Remove
           </button>
         </div>

@@ -24,10 +24,6 @@ namespace HotelBooking.Infrastructure.Repositories
         public async Task<UserModel> GetUserByEmailAsync(string email)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-            if (user == null)
-            {
-                throw new KeyNotFoundException();
-            }
 
             return _mapper.Map<UserModel>(user);
         }

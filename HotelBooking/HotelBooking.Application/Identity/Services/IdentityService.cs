@@ -33,7 +33,7 @@ namespace HotelBooking.Application.Identity.Services
         {
             var hashedPassword = _passwordHasher.Generate(userRegisterDto.Password);
 
-            var userWithEmail = _usersRepository.GetUserByEmailAsync(userRegisterDto.Email);
+            var userWithEmail = await _usersRepository.GetUserByEmailAsync(userRegisterDto.Email);
             if (userWithEmail != null)
             {
                 throw new InvalidOperationException("Email is already in use.");

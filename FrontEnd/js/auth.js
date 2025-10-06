@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
         firstName: document.getElementById("firstName").value,
         lastName: document.getElementById("lastName").value,
         email: document.getElementById("email").value,
+        role: document.getElementById("role").value,
         password: document.getElementById("password").value,
-        confirmPassword: document.getElementById("confirmPassword").value,
       };
 
       const res = await fetch("http://localhost:5138/api/Identity/register", {

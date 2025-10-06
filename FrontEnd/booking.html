@@ -80,7 +80,7 @@
         <template x-if="!room.isEditing">
             <div>
                 <div class="font-semibold" x-text="room.roomName"></div>
-                <div class="text-gray-500 text-sm" x-text="room.roomSize"></div>
+                <div class="text-gray-500 text-sm" x-text="`Size: ${room.roomSize}`"></div>
             </div>
         </template>
 

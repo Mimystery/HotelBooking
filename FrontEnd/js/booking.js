@@ -155,7 +155,7 @@ export function hotelPage() {
     async loadBookedDates(roomId) {
 
       try {
-        const response = await fetch(`http://localhost:5138/api/Bookings/roomBookings/${roomId}`);
+        const response = await apiFetch(`http://localhost:5138/api/Bookings/roomBookings/${roomId}`);
         if (!response.ok) throw new Error('Failed to load bookings');
         const data = await response.json();
 
