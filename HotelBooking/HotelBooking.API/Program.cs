@@ -100,6 +100,21 @@ var app = builder.Build();
 
 app.UseCors("AllowFront");
 
+app.Use(async (context, next) =>
+{
+    if (context.Request.Method == "OPTIONS")
+    {
+        context.Response.Headers.Add("Access-Control-Allow-Origin", "https://hotelbooking-1-u50e.onrender.com");
+        context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        context.Response.StatusCode = 200;
+        await context.Response.CompleteAsync();
+        return;
+    }
+
+    await next();
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 
