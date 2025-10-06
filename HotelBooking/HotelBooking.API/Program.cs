@@ -96,6 +96,8 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 var app = builder.Build();
 
+app.UseHttpsRedirection();
+
 app.UseCors("AllowFront");
 
 app.UseSwagger();
@@ -110,8 +112,6 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<HotelBookingDBContext>();
     db.Database.Migrate();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();

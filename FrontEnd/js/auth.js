@@ -1,4 +1,5 @@
 import { redirectToLogin } from './utils.js';
+import { apiFetch } from './api.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
