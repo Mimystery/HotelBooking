@@ -2,19 +2,19 @@ import { getUser, getCookie, redirectToLogin } from './utils.js';
 import { refreshAccessToken } from './auth.js';
 import { apiFetch } from './api.js';
 
-export async function hotelPage() {
+export function hotelPage() {
 
   const storedHotel = JSON.parse(sessionStorage.getItem('selectedHotel'));
 
   const user = getUser();
 
   if (!user) {
-  const newUser = await refreshAccessToken();
-  if (!newUser) {
-    redirectToLogin();
-    return;
+    refreshAccessToken().then(newUser => {
+      if (!newUser) {
+        redirectToLogin();
+      }
+    });
   }
-}
 
   return {
     userRole: user.Role,
