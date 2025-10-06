@@ -53,7 +53,8 @@ builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(J
 
 builder.Services.AddDbContext<HotelBookingDBContext>(options =>
 {
-    options.UseMySql(builder.Configuration.GetConnectionString(nameof(HotelBookingDBContext)), new MySqlServerVersion(new Version(8, 0, 36)));
+    options.UseMySql($"Server={Environment.GetEnvironmentVariable("DB_HOST")};Database={Environment.GetEnvironmentVariable("DB_NAME")};User={Environment.GetEnvironmentVariable("DB_USER")};Password={Environment.GetEnvironmentVariable("DB_PASSWORD")}", 
+        new MySqlServerVersion(new Version(8, 0, 36)));
 });
 
 builder.Services.AddAutoMapper(cfg =>
