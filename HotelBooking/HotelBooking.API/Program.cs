@@ -69,7 +69,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFront",
         policy => policy
-            .WithOrigins("http://localhost:5500")
+            .WithOrigins("https://hotelbooking-1-u50e.onrender.com/")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());
