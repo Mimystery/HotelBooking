@@ -2,28 +2,19 @@ import { getUser, getCookie, redirectToLogin } from './utils.js';
 import { refreshAccessToken } from './auth.js';
 import { apiFetch } from './api.js';
 
-async function ensureToken() {
-  const accessToken = getCookie('accessToken');
-  if (!accessToken) {
-    const newToken = await refreshAccessToken();
-    if (!newToken) {
-      redirectToLogin();
-      return false;
-    }
-  }
-  return true;
-}
-
-export function hotelPage() {
+export async function hotelPage() {
 
   const storedHotel = JSON.parse(sessionStorage.getItem('selectedHotel'));
 
   const user = getUser();
 
   if (!user) {
-    refreshAccessToken();
+  const newUser = await refreshAccessToken();
+  if (!newUser) {
+    redirectToLogin();
     return;
   }
+}
 
   return {
     userRole: user.Role,
@@ -42,7 +33,6 @@ export function hotelPage() {
     bookedRanges: [],
 
     async init() {
-      // ensureToken()
 
       const storedHotel = JSON.parse(sessionStorage.getItem('selectedHotel'));
       if (!storedHotel) {
