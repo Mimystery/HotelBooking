@@ -40,7 +40,7 @@ namespace HotelBooking.API.Controllers
             {
                 HttpOnly = true,
                 Secure = true,
-                SameSite = SameSiteMode.Lax,
+                SameSite = SameSiteMode.None,
                 Expires = DateTime.UtcNow.AddDays(7),
             });
 
@@ -48,7 +48,7 @@ namespace HotelBooking.API.Controllers
             {
                 HttpOnly = false,
                 Secure = true,
-                SameSite = SameSiteMode.Lax,
+                SameSite = SameSiteMode.None,
                 Expires = DateTime.UtcNow.AddMinutes(15)
             });
 
@@ -67,7 +67,7 @@ namespace HotelBooking.API.Controllers
             {
                 HttpOnly = true,
                 Secure = true,
-                SameSite = SameSiteMode.Lax,
+                SameSite = SameSiteMode.None,
                 Expires = DateTime.UtcNow.AddDays(7),
             });
 
@@ -75,7 +75,7 @@ namespace HotelBooking.API.Controllers
             {
                 HttpOnly = false,
                 Secure = true,
-                SameSite = SameSiteMode.Lax,
+                SameSite = SameSiteMode.None,
                 Expires = DateTime.UtcNow.AddMinutes(15)
             });
 
