@@ -20,6 +20,11 @@ export function hotelPage() {
 
   const user = getUser();
 
+  if (!user) {
+    refreshAccessToken();
+    return;
+  }
+
   return {
     userRole: user.Role,
     username: user.UserName,
@@ -63,7 +68,7 @@ export function hotelPage() {
 
       } catch (err) {
         console.error('Error loading hotel/rooms:', err);
-        alert('Failed to load hotel data');
+        //alert('Failed to load hotel data');
       }
     },
 
