@@ -25,7 +25,7 @@ export async function apiFetch(url, options = {}, retry = true) {
 
       if (!newToken) {
         redirectToLogin();
-        return;
+        throw new Error('Unauthorized - redirecting to login');
       }
 
       const newHeaders = {

@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 export async function refreshAccessToken() {
   try {
-    const response = await apiFetch('https://hotelbooking-0bnw.onrender.com/api/Identity/refresh-token', {
+    const response = await fetch('https://hotelbooking-0bnw.onrender.com/api/Identity/refresh-token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
