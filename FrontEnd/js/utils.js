@@ -39,7 +39,7 @@ export function parseJwt(token) {
 }
 
 export function getUser(){
-    const token = getCookie('accessToken');
+    const token = sessionStorage.getItem('accessToken');
     const userData = parseJwt(token);
     return userData;
 }
