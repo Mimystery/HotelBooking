@@ -72,10 +72,15 @@ export async function refreshAccessToken() {
       credentials: 'include',
     });
 
-    if (!response.ok){
+    if (response.status === 401) {
       redirectToLogin();
-      throw new Error('Failed to refresh');
-    } 
+      return null;
+    }
+
+    if (!response.ok) {
+      console.error('Failed to refresh token:', response.status);
+      return null;
+    }
 
     const data = await response.json();
 
