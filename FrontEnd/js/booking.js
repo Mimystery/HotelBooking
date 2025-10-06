@@ -37,7 +37,7 @@ export function hotelPage() {
     bookedRanges: [],
 
     async init() {
-      ensureToken()
+      // ensureToken()
 
       const storedHotel = JSON.parse(sessionStorage.getItem('selectedHotel'));
       if (!storedHotel) {
