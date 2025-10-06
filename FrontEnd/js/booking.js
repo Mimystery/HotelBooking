@@ -46,7 +46,7 @@ export function hotelPage() {
       }
 
       try {
-        const hotelResp = await apiFetch(`http://localhost:5138/api/Hotels/hotelById/${storedHotel.hotelId}`);
+        const hotelResp = await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Hotels/hotelById/${storedHotel.hotelId}`);
         const hotelData = await hotelResp.json();
 
         this.hotel = {
@@ -96,7 +96,7 @@ export function hotelPage() {
 
 
     try {
-        const response = await apiFetch('http://localhost:5138/api/Bookings/addBooking', {
+        const response = await apiFetch('https://hotelbooking-0bnw.onrender.com/api/Bookings/addBooking', {
           method: 'POST',
           body: JSON.stringify(bookingData)
         });
@@ -155,7 +155,7 @@ export function hotelPage() {
     async loadBookedDates(roomId) {
 
       try {
-        const response = await apiFetch(`http://localhost:5138/api/Bookings/roomBookings/${roomId}`);
+        const response = await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Bookings/roomBookings/${roomId}`);
         if (!response.ok) throw new Error('Failed to load bookings');
         const data = await response.json();
 
@@ -193,7 +193,7 @@ export function hotelPage() {
     
     async updateRoom(room) {
         try {
-            await apiFetch(`http://localhost:5138/api/Rooms/updateRoom/${room.roomId}`, {
+            await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Rooms/updateRoom/${room.roomId}`, {
             method: 'PUT',
             body: JSON.stringify({
                 roomName: room.roomName,

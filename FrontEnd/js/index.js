@@ -43,7 +43,7 @@ window.hotelApp = function () {
 
     async init() {
 
-        const response = await apiFetch(`http://localhost:5138/api/Bookings/allBookings`);
+        const response = await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Bookings/allBookings`);
 
         this.bookings = await response.json();
 
@@ -54,7 +54,7 @@ window.hotelApp = function () {
         });
 
       try {
-        const response = await apiFetch('http://localhost:5138/api/Hotels/allHotels');
+        const response = await apiFetch('https://hotelbooking-0bnw.onrender.com/api/Hotels/allHotels');
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         this.hotels = await response.json();
 
@@ -91,7 +91,7 @@ window.hotelApp = function () {
 
         try {
 
-            await apiFetch(`http://localhost:5138/api/Hotels/deleteHotel/${id}`, {
+            await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Hotels/deleteHotel/${id}`, {
                 method: 'DELETE'
             });
 

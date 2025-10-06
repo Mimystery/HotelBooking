@@ -23,7 +23,7 @@ export function myBookingsApp() {
         this.username = user.UserName;
         this.userRole = user.Role
 
-        const response = await apiFetch(`http://localhost:5138/api/Bookings/userBookings/${user.Id}`);
+        const response = await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Bookings/userBookings/${user.Id}`);
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         const data = await response.json();
 

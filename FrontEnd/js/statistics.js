@@ -12,7 +12,7 @@ export function statisticsApp() {
     async init() {
 
       try {
-        const response = await apiFetch(`http://localhost:5138/api/Bookings/allBookings`);
+        const response = await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Bookings/allBookings`);
 
         const user = getUser();
         if (!user) {
@@ -29,7 +29,7 @@ export function statisticsApp() {
           checkOutDate: new Date(b.checkOutDate).toLocaleDateString('uk-UA')
         }));
 
-        const statsResp = await apiFetch(`http://localhost:5138/api/Bookings/bookingsStatistics`);
+        const statsResp = await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Bookings/bookingsStatistics`);
         const statsData = await statsResp.json();
 
         this.statistics = statsData.map(s => ({

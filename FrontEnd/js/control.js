@@ -39,7 +39,7 @@ export function hotelManager() {
         }
 
         try {
-            const response = await apiFetch('http://localhost:5138/api/Hotels/addHotel', {
+            const response = await apiFetch('https://hotelbooking-0bnw.onrender.com/api/Hotels/addHotel', {
                 method: 'POST',
                 body: JSON.stringify(this.hotel)
             });
@@ -70,14 +70,14 @@ export function hotelManager() {
                 pricePerNight: Number(this.newRoom.pricePerNight)
             };
 
-            const response = await apiFetch('http://localhost:5138/api/Rooms/addRoom', {
+            const response = await apiFetch('https://hotelbooking-0bnw.onrender.com/api/Rooms/addRoom', {
                 method: 'POST',
                 body: JSON.stringify(payload)
             });
 
             const data = await response.json();
 
-            const roomResponse = await apiFetch(`http://localhost:5138/api/Rooms/roomById/${data.roomId}`, {
+            const roomResponse = await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Rooms/roomById/${data.roomId}`, {
                 method: 'GET'
             });
 
@@ -98,7 +98,7 @@ export function hotelManager() {
         if (!confirm('Are you sure you want to delete this room?')) return;
 
         try {
-            await apiFetch(`http://localhost:5138/api/Rooms/deleteRoom/${roomId}`, {
+            await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Rooms/deleteRoom/${roomId}`, {
                 method: 'DELETE'
             });
                 this.rooms = this.rooms.filter(r => r.roomId !== roomId);
@@ -109,7 +109,7 @@ export function hotelManager() {
         },
     async updateRoom(room) {
         try {
-            await apiFetch(`http://localhost:5138/api/Rooms/updateRoom/${room.roomId}`, {
+            await apiFetch(`https://hotelbooking-0bnw.onrender.com/api/Rooms/updateRoom/${room.roomId}`, {
             method: 'PUT',
             body: JSON.stringify({
                 roomName: room.roomName,
