@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      const res = await fetch("https://hotelbooking-0bnw.onrender.com/api/Identity/login", {
+      const res = await apiFetch("https://hotelbooking-0bnw.onrender.com/api/Identity/login", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -44,10 +44,11 @@ document.addEventListener("DOMContentLoaded", () => {
         password: document.getElementById("password").value,
       };
 
-      const res = await fetch("https://hotelbooking-0bnw.onrender.com/api/Identity/register", {
+      const res = await apiFetch("https://hotelbooking-0bnw.onrender.com/api/Identity/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
+        credentials: 'include',
       });
 
       if (res.ok) {
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 export async function refreshAccessToken() {
   try {
-    const response = await fetch('https://hotelbooking-0bnw.onrender.com/api/Identity/refresh-token', {
+    const response = await apiFetch('https://hotelbooking-0bnw.onrender.com/api/Identity/refresh-token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
