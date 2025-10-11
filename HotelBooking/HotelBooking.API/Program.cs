@@ -97,7 +97,7 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 var app = builder.Build();
 
 //app.UseHttpsRedirection();
-
+app.UseRouting();
 app.UseCors("AllowFront");
 
 //app.Use(async (context, next) =>
