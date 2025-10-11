@@ -56,6 +56,7 @@ namespace HotelBooking.API.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("updateBooking/{bookingId}")]
         public async Task<ActionResult> UpdateBooking(Guid bookingId, [FromBody] BookingUpdateDTO bookingUpdateDto)
         {
@@ -70,6 +71,7 @@ namespace HotelBooking.API.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("deleteBooking/{bookingId}")]
         public async Task<ActionResult> DeleteBooking(Guid bookingId)
         {

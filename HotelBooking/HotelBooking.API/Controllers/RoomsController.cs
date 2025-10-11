@@ -42,6 +42,7 @@ namespace HotelBooking.API.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("addRoom")]
         public async Task<ActionResult> AddRoom([FromBody] RoomCreateDTO roomCreateDto)
         {
@@ -49,6 +50,7 @@ namespace HotelBooking.API.Controllers
             return Ok(new { roomId });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("updateRoom/{roomId}")]
         public async Task<ActionResult> UpdateRoom(Guid roomId, [FromBody] RoomUpdateDTO roomUpdateDto)
         {
@@ -63,6 +65,7 @@ namespace HotelBooking.API.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("deleteRoom/{roomId}")]
         public async Task<ActionResult> DeleteRoom(Guid roomId)
         {
